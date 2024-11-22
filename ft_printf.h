@@ -13,9 +13,9 @@ typedef struct format
 
 typedef struct variables
 {
-	format_t arr[3];
+	format_t *arr;
     int		i;
-	unsigned long		j;
+	int		j;
 	int		len;
 	va_list	arg;
 	int		check;
