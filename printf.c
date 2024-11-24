@@ -6,39 +6,40 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:02 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/22 11:56:15 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:36:06 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-format_t	*init_func(void)
+t_format	*init_func(void)
 {
-	static format_t	arr[3] = {{'c', ft_putchar}, {'s', ft_putstr}, {'%',
-			print_mod}};
+	static t_format	arr[] = {{'c', ft_putchar}, {'s', ft_putstr}, {'%',
+			print_mod}, {'d', ft_putnbr}, {'i', ft_putnbr}};
 
 	return (arr);
 }
 
-int	specifier_handler(format_t *arr, const char *character, va_list arg, int *len)
-{ 
+void	specifier_handler(t_format *arr, const char *character, va_list arg,
+		int *len)
+{
 	int	j;
-		j = 0;
-		while (j < 3)
+
+	j = 0;
+	while (j < 4)
+	{
+		if (*character == arr[j].specifier)
 		{
-			if (*character == arr[j].specifier)
-			{
-				arr[j].function_pointer(arg, len);
-				return (1);
-			}
-			j++;
+			arr[j].function_pointer(va_arg(arg, unsigned long), len);
+			return;
 		}
-	return (0);
+		j++;
+	}
 }
 
 int	ft_printf(const char *format, ...)
 {
-	format_t	*arr;
+	t_format	*arr;
 	va_list		arg;
 	int			len;
 	int			i;
@@ -49,24 +50,22 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		if(format[i] == '%')
+		if (format[i] == '%')
 		{
 			i++;
-			if (specifier_handler(arr, &format[i], arg, &len) == 0)
-				write(1, &format[i], 1);
+			specifier_handler(arr, &format[i], arg, &len);
 		}
-		else	
-				write(1, &format[i], 1);
+		else
+			write(1, &format[i], 1);
 		i++;
-
 	}
 	return (len);
 }
 
-// int	main(void)
-// {
-// 	// printf("Got: ");
-// 	// ft_printf("imane %l and %s imane %%  \n", 'j', "jb");
-// 	// printf("Expected: ");
-// 	printf("imane %c %s \n", 5, "jb");
-// }
+int	main(void)
+{
+	printf("Got:\n");
+	ft_printf("imane %d %s %%\n", -5, "100");
+	// printf("Expected: \n");
+	// printf("imane %d %s %%\n", 5, "jb");
+}

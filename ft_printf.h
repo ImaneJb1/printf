@@ -1,17 +1,20 @@
 #ifndef HEADER_H
 # define HEADER_H
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <unistd.h>
 
-typedef struct format
+typedef struct s_format
 {
-    char specifier;
-    void (*function_pointer)(va_list, int *);
-}format_t;
+	char	specifier;
+	void	(*function_pointer)(unsigned long, int *);
+}			t_format;
 
-void ft_putchar(va_list arg, int *len);
-void ft_putstr(va_list arg, int *len);
-void print_mod(va_list arg, int *len);
+void		ft_putchar(unsigned long arg, int *len);
+void		ft_putstr(unsigned long arg, int *len);
+void		print_mod(unsigned long arg, int *len);
+void		ft_putnbr(unsigned long arg, int *len);
+void		_putchar(char c, int *len);
+
 #endif
