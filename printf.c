@@ -6,11 +6,12 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:02 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/24 15:40:46 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/24 23:26:41 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
 
 t_format	*init_func(void)
 {
@@ -57,17 +58,18 @@ int	ft_printf(const char *format, ...)
 			specifier_handler(arr, &format[i], arg, &len);
 		}
 		else
-			write(1, &format[i], 1);
+			len += write(1, &format[i], 1);
 		i++;
 	}
+	va_end(arg);
 	return (len);
 }
 
-int	main(void)
-{
-	// printf("Got:\n");
-	char c = 'c';
-	 printf("ori %p\n", &c);
-	ft_printf("ana %p\n", &c);
-	// printf("imane %d %s %%\n", 5, "jb");
-}
+// int	main(void)
+// {
+// 	// printf("Got:\n");
+// 	char c = 'c';
+// 	 int a = printf("ori %c\n", 'h');
+// 	int b = ft_printf("ana %c\n", 'h');
+// 	printf("original: %d\nmine: %d\n", a, b);
+// }

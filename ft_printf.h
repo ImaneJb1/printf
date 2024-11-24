@@ -6,7 +6,7 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:36:43 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/24 15:38:35 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/24 23:01:04 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void		ft_put_unsigned_nbr(unsigned long n, int *len);
 void		ft_put_lowhexa_nbr(unsigned long n, int *len);
 void		ft_put_upphexa_nbr(unsigned long n, int *len);
 void		ft_putaddress(unsigned long n, int *len);
+int			ft_printf(const char *format, ...);
+void	specifier_handler(t_format *arr, const char *character, va_list arg, int *len);
 
 #endif
