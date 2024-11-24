@@ -1,12 +1,12 @@
 #include "ft_printf.h"
 
-void _putchar(char c, int *len)
+void ft_putchar(char c, int *len)
 {   
     write(1, &c, 1);
     *len += 1;
 }
 
-void ft_putchar(unsigned long n, int *len)
+void ft_printchar(unsigned long n, int *len)
 {
     char c;
 
@@ -47,7 +47,7 @@ void    ft_put_unsigned_nbr(unsigned long n, int *len)
 	}
 	if (n <= 9)
 	{
-		_putchar(n + 48, len);
+		ft_putchar(n + 48, len);
 	}
 }
 
@@ -63,7 +63,7 @@ void	ft_putnbr(unsigned long n, int *len)
 	}
 	if (nb < 0)
 	{
-		_putchar('-', len);
+		ft_putchar('-', len);
 		nb = -nb;
 	}
 	if (nb > 9)
@@ -73,6 +73,53 @@ void	ft_putnbr(unsigned long n, int *len)
 	}
 	if (nb <= 9)
 	{
-        _putchar(nb + 48, len);
+        ft_putchar(nb + 48, len);
 	}
+}
+
+void	ft_put_lowhexa_nbr(unsigned long n, int *len)
+{
+    char *base = "0123456789abcdef";
+	
+    if (n < 0)
+	{
+		ft_putchar('-', len);
+		n = -n;
+	}
+	if (n > 15)
+	{
+		ft_put_lowhexa_nbr(n / 16, len);
+		ft_put_lowhexa_nbr(n % 16, len);
+	}
+	if (n <= 15)
+	{
+        ft_putchar(base[n], len);
+	}
+}
+
+void	ft_put_upphexa_nbr(unsigned long n, int *len)
+{
+    char *base = "0123456789ABCDEF";
+	
+    if (n < 0)
+	{
+		ft_putchar('-', len);
+		n = -n;
+	}
+	if (n > 15)
+	{
+		ft_put_upphexa_nbr(n / 16, len);
+		ft_put_upphexa_nbr(n % 16, len);
+	}
+	if (n <= 15)
+	{
+        ft_putchar(base[n], len);
+	}
+}
+
+void ft_putaddress(unsigned long n, int* len)
+{
+	ft_putchar('0', len);
+	ft_putchar('x', len);
+	ft_put_lowhexa_nbr(n, len);
 }

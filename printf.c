@@ -6,7 +6,7 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:02 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/23 15:36:06 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:40:46 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_format	*init_func(void)
 {
-	static t_format	arr[] = {{'c', ft_putchar}, {'s', ft_putstr}, {'%',
-			print_mod}, {'d', ft_putnbr}, {'i', ft_putnbr}};
+	static t_format	arr[] = {{'c', ft_printchar}, {'s', ft_putstr}, {'%',
+			print_mod}, {'d', ft_putnbr}, {'i', ft_putnbr}, {'u', 
+			ft_put_unsigned_nbr}, {'x', ft_put_lowhexa_nbr}, {'X', ft_put_upphexa_nbr}, {'p', ft_putaddress}};
 
 	return (arr);
 }
@@ -26,7 +27,7 @@ void	specifier_handler(t_format *arr, const char *character, va_list arg,
 	int	j;
 
 	j = 0;
-	while (j < 4)
+	while (j < 9)
 	{
 		if (*character == arr[j].specifier)
 		{
@@ -64,8 +65,9 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	printf("Got:\n");
-	ft_printf("imane %d %s %%\n", -5, "100");
-	// printf("Expected: \n");
+	// printf("Got:\n");
+	char c = 'c';
+	 printf("ori %p\n", &c);
+	ft_printf("ana %p\n", &c);
 	// printf("imane %d %s %%\n", 5, "jb");
 }
