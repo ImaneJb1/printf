@@ -6,7 +6,7 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:02 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/25 20:37:14 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:54:49 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_printf(const char *format, ...)
 		{
 			i++;
 			if (!format[i])
-				return(len);
+				return (len);
 			specifier_handler(arr, &format[i], arg, &len);
 		}
 		else
@@ -70,14 +70,12 @@ int	ft_printf(const char *format, ...)
 	va_end(arg);
 	return (len);
 }
-#include <limits.h>
-int	main(void)
-{
-	printf("%");
-	// ft_printf("zzzzz");
-	// while(1)
-	// {
-		
-	// }
-
-}
+// #include <limits.h>
+// int	main(void)
+// {
+// 	printf("54");
+// 	ft_printf("zzzzz");
+// 	while(1)
+// 	{
+// 	}
+// }
