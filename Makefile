@@ -1,4 +1,4 @@
-SRCS = printf.c printers.c
+SRCS = printf.c printers.c putnbrs.c
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a

@@ -6,17 +6,17 @@
 /*   By: ijoubair <ijoubair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:02 by ijoubair          #+#    #+#             */
-/*   Updated: 2024/11/25 16:09:54 by ijoubair         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:37:14 by ijoubair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
 t_format	*init_func(void)
 {
-	static t_format	arr[] = {{'c', ft_printchar}, {'s', ft_putstr}, {'d', ft_putnbr}, {'i', ft_putnbr}, {'u', 
-			ft_put_unsigned_nbr}, {'x', ft_put_lowhexa_nbr}, {'X', ft_put_upphexa_nbr}, {'p', put_0x}};
+	static t_format	arr[] = {{'c', ft_printchar}, {'s', ft_putstr}, {'d',
+		ft_putnbr}, {'i', ft_putnbr}, {'u', ft_put_unsigned_nbr}, {'x',
+		ft_put_lowhexa_nbr}, {'X', ft_put_upphexa_nbr}, {'p', put_0x}};
 
 	return (arr);
 }
@@ -27,18 +27,17 @@ void	specifier_handler(t_format *arr, const char *character, va_list arg,
 	int	j;
 
 	j = 0;
-
 	if (*character == '%')
-		{
-			*len += write(1, "%", 1);
-			return;
-		}
+	{
+		*len += write(1, "%", 1);
+		return ;
+	}
 	while (j < 9)
 	{
 		if (*character == arr[j].specifier)
 		{
 			arr[j].function_pointer(va_arg(arg, unsigned long), len);
-			return;
+			return ;
 		}
 		j++;
 	}
@@ -57,10 +56,11 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		
 		if (format[i] == '%')
 		{
 			i++;
+			if (!format[i])
+				return(len);
 			specifier_handler(arr, &format[i], arg, &len);
 		}
 		else
@@ -70,17 +70,14 @@ int	ft_printf(const char *format, ...)
 	va_end(arg);
 	return (len);
 }
-// #include <limits.h>
-// int	main(void)
-// {
-// 	close (1);
-// 	// printf("Got:\n");
-// 	 char c = 'c';
-// 	int a = printf("orignal-> TYUGVH%sRVFGYTU\n", NULL);
-// 	int b = ft_printf("mine----> TYUGVH%sRVFGYTU\n", NULL);
-// 	// printf("original: %d\nmine: %d\n", a, b);
-// 	if(!a)
-// 		write(2,"c",1);
+#include <limits.h>
+int	main(void)
+{
+	printf("%");
+	// ft_printf("zzzzz");
+	// while(1)
+	// {
+		
+	// }
 
-// }
-
+}
