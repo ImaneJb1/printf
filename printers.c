@@ -21,7 +21,12 @@ void ft_putstr(unsigned long n, int *len)
     char *s;
     
     s = (char*)n;
-    i = 0;
+    if(s == NULL)
+	{
+		*len += write(1, "(null)", 6);
+		return;
+	}
+	i = 0;
     while (s[i])
     {
         write(1, &s[i], 1);
@@ -29,26 +34,23 @@ void ft_putstr(unsigned long n, int *len)
     }
     *len += i;
 }
-void print_mod(unsigned long n, int *len)
-{
-    (void) n;
-    write(1, "%", 1);
-    *len += 1;
-}
+
 
 void    ft_put_unsigned_nbr(unsigned long n, int *len)
 {
     unsigned int nb;
+	unsigned int nbr;
 
+	nbr = (unsigned int)n;
     nb = n;
-    if (n > 9)
+    if (nbr > 9)
 	{
-		ft_put_unsigned_nbr(n / 10, len);
-		ft_put_unsigned_nbr(n % 10, len);
+		ft_put_unsigned_nbr(nbr / 10, len);
+		ft_put_unsigned_nbr(nbr % 10, len);
 	}
-	if (n <= 9)
+	if (nbr <= 9)
 	{
-		ft_putchar(n + 48, len);
+		ft_putchar(nbr + 48, len);
 	}
 }
 
@@ -59,7 +61,7 @@ void	ft_putnbr(unsigned long n, int *len)
   
     if (nb == -2147483648)
 	{
-		write (1, "-2147483648", 11);
+		*len += write (1, "-2147483648", 11);
 		return ;
 	}
 	if (nb < 0)
@@ -81,46 +83,70 @@ void	ft_putnbr(unsigned long n, int *len)
 void	ft_put_lowhexa_nbr(unsigned long n, int *len)
 {
     char *base = "0123456789abcdef";
-	
-    if (n < 0)
+	unsigned int nbr;
+
+	nbr = (unsigned int)n;
+	if (nbr < 0)
 	{
 		ft_putchar('-', len);
-		n = -n;
+		nbr = -nbr;
 	}
-	if (n > 15)
+	if (nbr > 15)
 	{
-		ft_put_lowhexa_nbr(n / 16, len);
-		ft_put_lowhexa_nbr(n % 16, len);
+		ft_put_lowhexa_nbr(nbr / 16, len);
+		ft_put_lowhexa_nbr(nbr % 16, len);
 	}
-	if (n <= 15)
+	if (nbr <= 15)
 	{
-        ft_putchar(base[n], len);
+        ft_putchar(base[nbr], len);
 	}
 }
 
 void	ft_put_upphexa_nbr(unsigned long n, int *len)
 {
     char *base = "0123456789ABCDEF";
+	unsigned int nbr;
+
+	nbr = (unsigned int)n;
+    if (nbr < 0)
+	{
+		ft_putchar('-', len);
+		nbr = -nbr;
+	}
+	if (nbr > 15)
+	{
+		ft_put_upphexa_nbr(nbr / 16, len);
+		ft_put_upphexa_nbr(nbr % 16, len);
+	}
+	if (nbr <= 15)
+	{
+        ft_putchar(base[nbr], len);
+	}
+}
+
+void put_0x(unsigned long n, int *len)
+{
+
+	ft_putchar('0', len);
+	ft_putchar('x', len);
+	ft_putaddress(n, len);
+}
+void ft_putaddress(unsigned long n, int* len)
+{
+	char *base = "0123456789abcdef";
 	
-    if (n < 0)
+	if (n < 0)
 	{
 		ft_putchar('-', len);
 		n = -n;
 	}
 	if (n > 15)
 	{
-		ft_put_upphexa_nbr(n / 16, len);
-		ft_put_upphexa_nbr(n % 16, len);
+		ft_putaddress(n / 16, len);
+		ft_putaddress(n % 16, len);
 	}
 	if (n <= 15)
 	{
         ft_putchar(base[n], len);
 	}
-}
-
-void ft_putaddress(unsigned long n, int* len)
-{
-	ft_putchar('0', len);
-	ft_putchar('x', len);
-	ft_put_lowhexa_nbr(n, len);
 }
